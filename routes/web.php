@@ -34,11 +34,13 @@ Route::get('/home', function () {
  });
 
 
+
 Route::get('/home', function () {
 
     $posts = Post::where('user_id', Auth::id())->get(); //menampilkan artikel yang hanya diinput oleh user tsb
     return view('home', ['posts' => $posts]);
 });
+
 
 //Route::post('/create-post', [PostController::class,'createPost']);
 //Route::get('/edit-post/{post}',[PostController::class,'showEditScreen']);
@@ -49,8 +51,13 @@ Route::delete('/delete-post/{post}',[PostController::class,'deletePost']);
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('/edit-post/{post}',[PostController::class,'showEditScreen']);
     Route::put('/edit-post/{post}',[PostController::class,'actuallyUpdatePost']);
+    //menampilkan laporan
+    Route::get('/laporan', [PostController::class, 'laporan']);
+    //download pdf
+    Route::get('/pdf', [PostController::class, 'eksporPdf'])->name('laporan');
 
     });
+
 
 Route::middleware([RoleMiddleware::class . ':admin,user'])->group(function () {
     Route::post('/create-post', [PostController::class,'createPost']);

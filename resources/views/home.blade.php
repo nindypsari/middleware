@@ -7,13 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/home"> Home <a>
-    <a href="/about"> About <a>
+    <a href="/home"> Home </a>
+    <a href="/about"> About </a>
+    <a href="/laporan"> Laporan </a>
     <h1> Halaman Home </h1>
 
         {{-- apabila login --}} 
         @auth 
-        <p>Congrats Login</p> 
+        <p>Congrats <b>{{ auth()->user()->name }} </b> dengan role sebagai <b>{{ auth()->user()->role }}</b> berhasil login !!</p> 
         <form action="/logout" method="POST">
         @csrf
         <button>Log Out</button>
